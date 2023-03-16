@@ -75,6 +75,7 @@ export const GlobalProvider = ({ children }) => {
                 provider: state.provider,
                 delAccount,
                 addAccount,
+                updateTokenBalance,
                 updateNativeBalance,
                 updateSalePrice,
                 updateRemainingTokens,
