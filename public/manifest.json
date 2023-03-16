@@ -1,0 +1,25 @@
+{
+  "short_name": "Symplexia Labs Crowdfunding",
+  "name": "Special Offering for Symplexia Token (PLEX-FROG)",
+  "icons": [
+    {
+      "src": "Symplexia_Favicon_32x32-Base.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "Logo_Symplexia_Normal_200x49-Base.png",
+      "type": "image/png",
+      "sizes": "200x49"
+    },
+    {
+      "src": "Logo_Symplexia_Retina_440x106-Base.png",
+      "type": "image/png",
+      "sizes": "440x106"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000ff"
+}
