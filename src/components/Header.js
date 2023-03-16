@@ -103,7 +103,7 @@ const HeaderComponent = ({setError, setErrMsg}) => {
             <div className="max-w-[180px] ">
                 <img src={logo} alt="logo" />
             </div>
-            
+            <Account />
             <div className="mt-4 sm:mt-0">
                 {account ? (
                     <div className="flex items-center flex-col">
