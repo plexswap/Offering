@@ -67,7 +67,7 @@ function Offering() {
                 return;
             }
            if(!validatePrice()) {
-                alert('Purchase should be made minimum 0.01 BNB');
+                alert('Purchase should be made minimum 0.1 BNB');
                 return;
             }
 
@@ -151,7 +151,7 @@ function Offering() {
                 <div className='mt-10 text-left'>
                     <h3 className=' uppercase text-sm font-semibold mb-2 text-[#F5A700]'>Instructions:</h3>
                     <ul className='text-sm list-outside list-disc'>
-                        <li className='ml-4'>Minimum purchase allowed: 5 BNB</li>
+                        <li className='ml-4'>Minimum purchase allowed: 0.1 BNB</li>
                         <li className='ml-4'>BNB Balance: {nativeBalance}</li>
                         <li className='ml-4'>PLEX-F Balance: {tokenBalance} </li>
                         <li className='ml-4'>Sale Price: {salePrice} </li>
