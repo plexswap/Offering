@@ -5,11 +5,8 @@ import SalesVaultABI from '../abi/SalesVault.json';
 import CoinABI from '../abi/token.json';
 import { baseTokenAddress, salesVaultAddress, baseTokenInfo }  from "../config/contracts";
 import { chainInfo }  from "../config/chains";
-import { Account } from "./Account";
-import { Balance } from "./Balance";
-import { ChainId } from "./ChainId";
 
-function Presale() {
+function Offering() {
     const { account, tokenBalance, nativeBalance, salePrice, remainingTokens, provider } = useContext(GlobalContext);
     const [loading,  setLoading]        = useState(false);
     const [tokenAmount, setTokenAmount] = useState(0);
@@ -150,9 +147,7 @@ function Presale() {
                 <h1 className="text-base sm:text-xl font-bold uppercase text-[#F5A700]" >Special Sales Offering</h1>
                 <h1 className="text-2xl sm:text-4xl font-bold uppercase text-black" >Symplexia Financial Ecosystem</h1>
                 <button className='mt-5 px-6 py-2 bg-[#F5A700] text-white rounded font-bold hover:bg-[#FFC11A]' onClick={() => addToken()}>Add PLEX-F to your MetaMask</button>
-                {/* <div className='mt-3 hidden md:block'>
-                <p className="text-lg">For Progress, Investment & Success</p>
-            </div> */}
+
                 <div className='mt-10 text-left'>
                     <h3 className=' uppercase text-sm font-semibold mb-2 text-[#F5A700]'>Instructions:</h3>
                     <ul className='text-sm list-outside list-disc'>
@@ -161,21 +156,7 @@ function Presale() {
                         <li className='ml-4'>PLEX-F Balance: {tokenBalance} </li>
                         <li className='ml-4'>Sale Price: {salePrice} </li>
                         <li className='ml-4'>Available for Sale: {remainingTokens} </li>
-                        <li className='ml-4'>Coin Validation: {coinQty} </li>
                     </ul>
-                    
-                    <div className="hidden flex-none px-2 mx-2 lg:flex">
-        <div className="flex items-stretch">
-      
-        <div className="hidden flex-none px-2 mx-2 lg:flex">
-            <div className="flex items-stretch">
-               <Account />
-            </div>
-        </div>
-
-        </div>
-      </div>
-
                 </div>
             </div>
         </div>
@@ -183,4 +164,4 @@ function Presale() {
     );
 }
 
-export default Presale;
+export default Offering;

@@ -48,9 +48,6 @@ const Footer = () => {
                             </svg>
                         </a>
                     </span>
-                    <p className="text-[#ffffff] text-xs text-center sm:text-left mt-2 sm:mt-0">Powered by:&nbsp; 
-                        <a href="#" className="text-blue-600 hover:text-blue-200"><i>bRd Digitech</i></a>
-                    </p>
                 </div> 
             </div>
         </footer>

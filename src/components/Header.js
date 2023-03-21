@@ -9,9 +9,6 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { baseTokenAddress, salesVaultAddress }  from "../config/contracts";
 import { chainInfo } from "../config/chains";
 import { Account } from "./Account";
-import { Balance } from "./Balance";
-import { ChainId } from "./ChainId";
-
 
 const providerOptions = {
   walletconnect: {
@@ -100,11 +97,17 @@ const HeaderComponent = ({setError, setErrMsg}) => {
     return (
        
         <div className="mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row justify-between shadow-lg navbar bg-neutral text-neutral-content rounded-box">
-            <div className="max-w-[180px] ">
+            <div className="flex items-center flex-col md:flex-row justify-between">
+              <div className="max-w-[180px] ">
                 <img src={logo} alt="logo" />
+              </div>
+              <a href="https://swap.plexfinance.us/"
+                className='text-sm pt-2 ml-4 pl-4 font-bold text-[#F5A700] hover:text-[#FFC11A]'>Financial Center
+              </a>
             </div>
+            <div className="flex items-center flex-col md:flex-row">
             <Account />
-            <div className="mt-4 sm:mt-0">
+            <div className="ml-4 mt-4 sm:mt-0">
                 {account ? (
                     <div className="flex items-center flex-col">
                         <button className="px-6 py-2 bg-[#F5A700] hover:bg-[#FFC11A] rounded text-white font-bold" onClick={() => {
@@ -115,7 +118,7 @@ const HeaderComponent = ({setError, setErrMsg}) => {
                 ) : (
                     <button className="px-6 py-2 bg-[#F5A700] hover:bg-[#FFC11A] rounded text-white font-bold" onClick={() => connectWallet()}>Connect Wallet</button>
                 )}
-
+            </div>
             </div>
                        
         </div>
