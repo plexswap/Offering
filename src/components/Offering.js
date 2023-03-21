@@ -10,8 +10,6 @@ function Offering() {
     const { account, tokenBalance, nativeBalance, salePrice, remainingTokens, provider } = useContext(GlobalContext);
     const [loading,  setLoading]        = useState(false);
     const [tokenAmount, setTokenAmount] = useState(0);
-    const [coinQty,  setCoinAmount]     = useState(0);
-
     const coinAmount = useRef(null);
     console.log(provider)
     
@@ -107,13 +105,7 @@ function Offering() {
 
     const receivedToken = () => {
         setTokenAmount(parseFloat(coinAmount.current.value) * parseFloat(salePrice))
-        spentCoin()
     }
-
-    const spentCoin = () => {
-        setCoinAmount(tokenAmount / salePrice)
-    }
-
 
     return (
         <div className="my-11 p-7 flex items-center flex-col md:flex-row justify-between border border-white border-opacity-20 rounded-3xl shadow-xl ">
@@ -133,7 +125,7 @@ function Offering() {
                     </div>
                     <div className="my-3">
                         <label className="text-base font-bold text-[#F5A700]">PLEX-F Amount</label>
-                        <input className="w-full h-12 rounded-lg p-2 text-xl focus:outline-none mt-1 border" type="text" value={tokenAmount ? tokenAmount : 0} disabled onChange={spentCoin}/>
+                        <input className="w-full h-12 rounded-lg p-2 text-xl focus:outline-none mt-1 border" type="text" value={tokenAmount ? tokenAmount : 0} disabled />
                     </div>
 
                     <div className="mt-10">
