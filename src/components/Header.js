@@ -83,17 +83,23 @@ const HeaderComponent = ({setError, setErrMsg}) => {
         }
         
     }
+
     useEffect(()=>{
         if(window.ethereum) {
             window.ethereum.on('accountsChanged', accounts => {
                 addAccount({ id: accounts[0] })
                 connectWallet()
-            })
+             //   window.location.reload();
+            }
+            )
             window.ethereum.on('chainChanged', chainId => {
-                window.location.reload();
+             //   window.location.reload();
+                connectWallet()
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [account]);
+    
     return (
        
         <div className="mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row justify-between shadow-lg navbar bg-neutral text-neutral-content rounded-box">
