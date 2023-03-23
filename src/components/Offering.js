@@ -7,7 +7,7 @@ import { baseTokenAddress, salesVaultAddress, baseTokenInfo }  from "../config/c
 import { chainInfo }  from "../config/chains";
 
 function Offering() {
-    const { account, tokenBalance, nativeBalance, salePrice, remainingTokens, provider } = useContext(GlobalContext);
+    const { account, tokenBalance, nativeBalance, salePrice, remainingTokens, provider, UpdateContractsInfo } = useContext(GlobalContext);
     const [loading,  setLoading]        = useState(false);
     const [tokenAmount, setTokenAmount] = useState(0);
     const coinAmount = useRef(null);
@@ -61,7 +61,7 @@ function Offering() {
                 return
             }
             if (!account) {
-                alert('Please connnect wallet');
+                alert('Please connnect Wallet');
                 return;
             }
            if(!validatePrice()) {
@@ -95,6 +95,7 @@ function Offering() {
 
             const transaction = await contract.connect(signer).buyTokens(account, { value: price })
             await transaction.wait()
+            UpdateContractsInfo()
 
             setLoading(false);
             alert('purchase done');

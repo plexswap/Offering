@@ -1,5 +1,9 @@
+import { ethers } from "ethers";
 import React, { createContext, useReducer } from "react";
 import { AppReducer } from './AppReducer'
+import TokenABI from '../abi/SymplexiaToken.json'
+import SalesVaultABI from '../abi/SalesVault.json'
+import { baseTokenAddress, salesVaultAddress }  from "../config/contracts";
 
 const initialState = {
     account: null, 
@@ -64,6 +68,31 @@ export const GlobalProvider = ({ children }) => {
         })
     }
 
+    const UpdateContractsInfo = async () => {
+        try {
+            const provider = state.provider;
+            const signer   = provider.getSigner();
+            const address  = await signer.getAddress();
+            const network  = await provider.getNetwork();
+            const chainId  = network.chainId;
+
+            const nativeBalance = await provider.getBalance(address)
+            updateNativeBalance(parseFloat(ethers.utils.formatEther(nativeBalance)).toFixed(4))
+
+            const tokenContract = new ethers.Contract(baseTokenAddress[chainId], TokenABI, signer)
+            const balanceOf = await tokenContract.balanceOf(address) 
+            updateTokenBalance(ethers.utils.formatUnits(balanceOf, 9))
+
+            const saleContract    = new ethers.Contract(salesVaultAddress[chainId], SalesVaultABI, signer)
+            const salePrice       = await saleContract.salePrice()
+            updateSalePrice(ethers.utils.formatUnits(salePrice, 9))
+            const remainingTokens = await saleContract.remainingTokens()
+            updateRemainingTokens(ethers.utils.formatUnits(remainingTokens, 9))
+
+        } catch(e) {
+            console.log(e)
+        }
+    }
     return (
         <GlobalContext.Provider value={
             {
@@ -80,6 +109,7 @@ export const GlobalProvider = ({ children }) => {
                 updateSalePrice,
                 updateRemainingTokens,
                 updateProvider,
+                UpdateContractsInfo,
             }
         }
         >

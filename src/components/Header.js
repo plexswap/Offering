@@ -3,10 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Web3Modal from 'web3modal';
 import { GlobalContext } from "../context/GlobalContext";
 import logo from './../assets/Logo_Symplexia_Retina_440x106-Base.png';
-import TokenABI from '../abi/SymplexiaToken.json'
-import SalesVaultABI from '../abi/SalesVault.json'
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { baseTokenAddress, salesVaultAddress }  from "../config/contracts";
 import { chainInfo } from "../config/chains";
 import { Account } from "./Account";
 
@@ -25,81 +22,38 @@ const providerOptions = {
 
 const HeaderComponent = ({setError, setErrMsg}) => {
 
-    const [chainId, setChainId] = useState(56)
-
-    const { account, addAccount, delAccount, 
-            updateTokenBalance, updateNativeBalance, updateSalePrice, 
-            updateRemainingTokens, updateProvider } = useContext(GlobalContext);
-
-    const getTokenBalance = async(signer, address) => {
-        const tokenContract = new ethers.Contract(baseTokenAddress[chainId], TokenABI, signer)
-        const balanceOf = await tokenContract.balanceOf(address) 
-        updateTokenBalance(ethers.utils.formatUnits(balanceOf, 9))
-        console.log(ethers.utils.formatUnits(balanceOf, 9))
-    }
-
-    const getSalePrice = async(signer) => {
-        const saleContract    = new ethers.Contract(salesVaultAddress[chainId], SalesVaultABI, signer)
-        const salePrice       = await saleContract.salePrice()
-        updateSalePrice(ethers.utils.formatUnits(salePrice, 9))
-        console.log(ethers.utils.formatUnits(salePrice, 9))
-    }
-
-    const getRemainingTokens = async(signer) => {
-        const saleContract    = new ethers.Contract(salesVaultAddress[chainId], SalesVaultABI, signer)
-        const remainingTokens = await saleContract.remainingTokens()
-        updateRemainingTokens(ethers.utils.formatUnits(remainingTokens, 9))
-        console.log(ethers.utils.formatUnits(remainingTokens, 9))
-    }
-
-    const getNativeBalance = async (provider, address) => {
-        const nativeBalance = await provider.getBalance(address)
-        updateNativeBalance(parseFloat(ethers.utils.formatEther(nativeBalance)).toFixed(4))
-        console.log(parseFloat(ethers.utils.formatEther(nativeBalance)).toFixed(4))
-    }
+    const { account, addAccount, delAccount, updateProvider, UpdateContractsInfo } = useContext(GlobalContext);
 
     const connectWallet = async () => {
         const web3modal = new Web3Modal({ providerOptions });
-        const instance = await web3modal.connect();
-        const provider = new ethers.providers.Web3Provider(instance);
+        const instance  = await web3modal.connect();
+        const provider  = new ethers.providers.Web3Provider(instance);
         console.log(provider)
         updateProvider(provider)
         const signer = provider.getSigner();
         const address = await signer.getAddress();
         addAccount({ id: address });
         const network = await provider.getNetwork();
-        setChainId(network.chainId)
         console.log(network)
-        if( !chainInfo[chainId] ) {
+        if( !chainInfo[network.chainId] ) {
             setError(true) 
             setErrMsg('Contract is not deployed on current network!')
         } else {
             setError(false) 
             setErrMsg('')
-            getTokenBalance(signer, address)
-            getNativeBalance(provider, address)
-            getSalePrice(signer)
-            getRemainingTokens(signer)
+            UpdateContractsInfo()
         }
-        
     }
 
     useEffect(()=>{
+        UpdateContractsInfo()
         if(window.ethereum) {
-            window.ethereum.on('accountsChanged', accounts => {
-                addAccount({ id: accounts[0] })
-                connectWallet()
-             //   window.location.reload();
-            }
-            )
-            window.ethereum.on('chainChanged', chainId => {
-             //   window.location.reload();
-                connectWallet()
-            })
+            window.ethereum.on('accountsChanged', accounts => { connectWallet() })
+            window.ethereum.on('chainChanged', chainId => { window.location.reload(); })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [account]);
-    
+
     return (
        
         <div className="mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row justify-between shadow-lg navbar bg-neutral text-neutral-content rounded-box">
@@ -119,6 +73,7 @@ const HeaderComponent = ({setError, setErrMsg}) => {
                         <button className="px-6 py-2 bg-[#F5A700] hover:bg-[#FFC11A] rounded text-white font-bold" onClick={() => {
                             delAccount()
                             updateProvider(null)
+                            window.location.reload()
                         }}>Disconnect Wallet</button>
                     </div>
                 ) : (
