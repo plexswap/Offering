@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Web3Modal from 'web3modal';
 import { GlobalContext } from "../context/GlobalContext";
 import logo from './../assets/Logo_Symplexia_Retina_440x106-Base.png';
