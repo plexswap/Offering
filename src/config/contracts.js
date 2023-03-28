@@ -8,7 +8,7 @@ export const salesVaultAddress = {
 export const baseTokenAddress = {
     56: '',
     97: '0xb7a3DFd16663dbA80c8f93338d1c59bA21680921',
-    5:  '0xE95AF82Bc998D2f05aD76a2F1B404756DCfc0b8a'
+    5:  '0xD1274753401214DfDecb02cba54EC8A95752D8c0'
 }
 
 export const baseTokenInfo = {
