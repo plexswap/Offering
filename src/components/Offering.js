@@ -6,13 +6,10 @@ import CoinABI from '../abi/token.json';
 import { baseTokenAddress, salesVaultAddress, baseTokenInfo }  from "../config/contracts";
 import { chainInfo }  from "../config/chains";
 
-
-function Presale() {
-    const { account, tokenBalance, nativeBalance, salePrice, remainingTokens, provider } = useContext(GlobalContext);
+function Offering() {
+    const { account, tokenBalance, nativeBalance, salePrice, remainingTokens, provider, UpdateContractsInfo } = useContext(GlobalContext);
     const [loading,  setLoading]        = useState(false);
     const [tokenAmount, setTokenAmount] = useState(0);
-    const [coinQty,  setCoinAmount]     = useState(0);
-
     const coinAmount = useRef(null);
     console.log(provider)
     
@@ -64,11 +61,11 @@ function Presale() {
                 return
             }
             if (!account) {
-                alert('Please connnect wallet');
+                alert('Please connnect Wallet');
                 return;
             }
            if(!validatePrice()) {
-                alert('Purchase should be made minimum 0.01 BNB');
+                alert('Purchase should be made minimum 0.1 BNB');
                 return;
             }
 
@@ -98,6 +95,7 @@ function Presale() {
 
             const transaction = await contract.connect(signer).buyTokens(account, { value: price })
             await transaction.wait()
+            UpdateContractsInfo()
 
             setLoading(false);
             alert('purchase done');
@@ -108,13 +106,7 @@ function Presale() {
 
     const receivedToken = () => {
         setTokenAmount(parseFloat(coinAmount.current.value) * parseFloat(salePrice))
-        spentCoin()
     }
-
-    const spentCoin = () => {
-        setCoinAmount(tokenAmount / salePrice)
-    }
-
 
     return (
         <div className="my-11 p-7 flex items-center flex-col md:flex-row justify-between border border-white border-opacity-20 rounded-3xl shadow-xl ">
@@ -134,7 +126,7 @@ function Presale() {
                     </div>
                     <div className="my-3">
                         <label className="text-base font-bold text-[#F5A700]">PLEX-F Amount</label>
-                        <input className="w-full h-12 rounded-lg p-2 text-xl focus:outline-none mt-1 border" type="text" value={tokenAmount ? tokenAmount : 0} disabled onChange={spentCoin}/>
+                        <input className="w-full h-12 rounded-lg p-2 text-xl focus:outline-none mt-1 border" type="text" value={tokenAmount ? tokenAmount : 0} disabled />
                     </div>
 
                     <div className="mt-10">
@@ -147,19 +139,16 @@ function Presale() {
             <div className="md:pl-8 text-center md:text-left md:mr-2">
                 <h1 className="text-base sm:text-xl font-bold uppercase text-[#F5A700]" >Special Sales Offering</h1>
                 <h1 className="text-2xl sm:text-4xl font-bold uppercase text-black" >Symplexia Financial Ecosystem</h1>
-                <button className='mt-5 px-6 py-2 bg-[#F5A700] text-white rounded font-bold hover:bg-[#FFC11A]' onClick={() => addToken()}>Add Token to your MetaMask</button>
-                {/* <div className='mt-3 hidden md:block'>
-                <p className="text-lg">For Progress, Investment & Success</p>
-            </div> */}
+                <button className='mt-5 px-6 py-2 bg-[#F5A700] text-white rounded font-bold hover:bg-[#FFC11A]' onClick={() => addToken()}>Add PLEX-F to your MetaMask</button>
+
                 <div className='mt-10 text-left'>
                     <h3 className=' uppercase text-sm font-semibold mb-2 text-[#F5A700]'>Instructions:</h3>
                     <ul className='text-sm list-outside list-disc'>
-                        <li className='ml-4'>Minimum purchase allowed: 5 BNB</li>
+                        <li className='ml-4'>Minimum purchase allowed: 0.1 BNB</li>
                         <li className='ml-4'>BNB Balance: {nativeBalance}</li>
                         <li className='ml-4'>PLEX-F Balance: {tokenBalance} </li>
                         <li className='ml-4'>Sale Price: {salePrice} </li>
                         <li className='ml-4'>Available for Sale: {remainingTokens} </li>
-                        <li className='ml-4'>Coin Validation: {coinQty} </li>
                     </ul>
                 </div>
             </div>
@@ -168,4 +157,4 @@ function Presale() {
     );
 }
 
-export default Presale;
+export default Offering;
