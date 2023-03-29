@@ -105,7 +105,8 @@ function Offering() {
     }
 
     const receivedToken = () => {
-        setTokenAmount(parseFloat(coinAmount.current.value) * parseFloat(salePrice))
+        // setTokenAmount(parseFloat(coinAmount.current.value) / parseFloat(salePrice))
+        setTokenAmount( (coinAmount.current.value / salePrice) * 10 ** 9 )
     }
 
     return (
@@ -147,7 +148,7 @@ function Offering() {
                         <li className='ml-4'>Minimum purchase allowed: 0.1 BNB</li>
                         <li className='ml-4'>BNB Balance: {nativeBalance}</li>
                         <li className='ml-4'>PLEX-F Balance: {tokenBalance} </li>
-                        <li className='ml-4'>Sale Price: {salePrice} </li>
+                        <li className='ml-4'>Sale Price: {((1 /salePrice)*10**9)} (PLEX-F per BNB)</li>
                         <li className='ml-4'>Available for Sale: {remainingTokens} </li>
                     </ul>
                 </div>
