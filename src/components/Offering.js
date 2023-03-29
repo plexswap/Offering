@@ -110,9 +110,9 @@ function Offering() {
     }
 
     return (
-        <div className="my-11 p-7 flex items-center flex-col md:flex-row justify-between border border-white border-opacity-20 rounded-3xl shadow-xl ">
+        <div className="my-11 p-7 flex items-center flex-col md:flex-row justify-between ">
 
-            <div className="my-10 border p-10 rounded-xl border-white border-opacity-30 border-gray border-opacity-80 shadow-xl  ">
+            <div className="my-10 border p-10 rounded-xl border-white border-opacity-30 border-gray border-opacity-80 shadow-xl">
 
                 <form onSubmit={approveBNB}>
                     <div className="my-3">
@@ -148,7 +148,7 @@ function Offering() {
                         <li className='ml-4'>Minimum purchase allowed: 0.1 BNB</li>
                         <li className='ml-4'>BNB Balance: {nativeBalance}</li>
                         <li className='ml-4'>PLEX-F Balance: {tokenBalance} </li>
-                        <li className='ml-4'>Sale Price: {((1 /salePrice)*10**9)} (PLEX-F per BNB)</li>
+                        <li className='ml-4'>Sale Price: {((10**9 /salePrice))} (PLEX-F per BNB)</li>
                         <li className='ml-4'>Available for Sale: {remainingTokens} </li>
                     </ul>
                 </div>
