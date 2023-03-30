@@ -56,13 +56,13 @@ const HeaderComponent = ({setError, setErrMsg}) => {
 
     return (
        
-        <div className="mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row justify-between shadow-lg navbar bg-neutral text-neutral-content rounded-box">
+        <div className="mx-auto py-2 px-4 flex flex-wrap flex-col sm:flex-row justify-between shadow-lg navbar bg-neutral text-neutral-content rounded-box">
             <div className="flex items-center flex-col md:flex-row justify-between">
-              <div className="max-w-[180px] ">
+              <div className="max-w-[160px] ">
                 <img src={logo} alt="logo" />
               </div>
               <a href="https://swap.plexfinance.us/"
-                className='text-sm pt-2 ml-4 pl-4 font-bold text-[#F5A700] hover:text-[#FFC11A]'>Financial Center
+                className='text-sm pt-2 ml-4 pl-14 font-bold text-[#52585b] hover:text-[#BDC2C4]'>Financial Center
               </a>
             </div>
             <div className="flex items-center flex-col md:flex-row">
@@ -70,14 +70,14 @@ const HeaderComponent = ({setError, setErrMsg}) => {
             <div className="ml-4 mt-4 sm:mt-0">
                 {account ? (
                     <div className="flex items-center flex-col">
-                        <button className="px-6 py-2 bg-[#F5A700] hover:bg-[#FFC11A] rounded text-white font-bold" onClick={() => {
+                        <button className="px-6 py-1 bg-[#F5A700] hover:bg-[#FFC11A] rounded-3xl text-white font-bold" onClick={() => {
                             delAccount()
                             updateProvider(null)
                             window.location.reload()
                         }}>Disconnect Wallet</button>
                     </div>
                 ) : (
-                    <button className="px-6 py-2 bg-[#F5A700] hover:bg-[#FFC11A] rounded text-white font-bold" onClick={() => connectWallet()}>Connect Wallet</button>
+                    <button className="px-6 py-1 bg-[#F5A700] hover:bg-[#FFC11A] rounded-3xl text-white font-bold" onClick={() => connectWallet()}>Connect Wallet</button>
                 )}
             </div>
             </div>
